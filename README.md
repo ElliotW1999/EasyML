@@ -6,7 +6,8 @@ Users will input a training data set, let the model train, and then input data t
 Frontend: Lightsail or EC2   
 Storing user data: DynamoDB  
 Free model training: Lambda  
-Premium features: Sagemaker  
+Premium features: Sagemaker    
+CloudWatch (trigger lambda/ sagemaker training)?
 
 ## Monetization ($x/mth):
 - Increase training time
