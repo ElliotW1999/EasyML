@@ -3,7 +3,7 @@ Building a webapp to allow users to train models and make predictions
 Users will input a training data set, let the model train, and then input data to make predictions on.
 
 ## Cloud architecture (AWS):
-Frontend: Lightsail or EC2   
+Frontend: Lightsail or EC2 (Lightsail looks to be cheaper/ EC2 more for enterprise level)  
 Storing user data: DynamoDB  
 Free model training: Lambda  
 Premium features: Sagemaker    
