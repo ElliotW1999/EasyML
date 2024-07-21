@@ -1,5 +1,5 @@
 # EasyML  
-Building a webapp to allow users to train models and make predictions
+Building a webapp to allow users to train models and make predictions  
 Users will input a training data set, let the model train, and then input data to make predictions on.
 
 ## Cloud architecture (AWS):
