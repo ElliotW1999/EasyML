@@ -2,6 +2,7 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+    import Button from '$lib/components/Button.svelte';
 </script>
 
 <svelte:head>
@@ -18,14 +19,10 @@
 			</picture>
 		</span>
 
-		to your new<br />SvelteKit app
+		Something inspiring<br />with mAcHiNe LeArNiNg
 	</h1>
+	<Button />
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
 </section>
 
 <style>
