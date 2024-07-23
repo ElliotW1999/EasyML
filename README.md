@@ -1,38 +1,25 @@
-# create-svelte
+# EasyML  
+Building a webapp to allow users to train models and make predictions  
+Users will input a training data set, let the model train, and then input data to make predictions on.  
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+## Cloud architecture (AWS):
+Frontend: Lightsail or EC2 (Lightsail looks to be cheaper/ EC2 more for enterprise level)  
+Storing user data: DynamoDB  
+Free model training: Lambda  
+Premium features: Sagemaker    
+CloudWatch (trigger lambda/ sagemaker training)?  
+  
+## Frontend:
+Svelte?  
 
-## Creating a project
+## Backend:  
+?
+  
+## Monetization ($x/mth):
+- Increase training time
+- Allow users to save models
+- Allow users to visualise predictor/response relationships
+- Show feature importances
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Unknowns:  
+What libraries/ tools to build front end
