@@ -13,7 +13,7 @@ CloudWatch (trigger lambda/ sagemaker training)?
 Svelte?  
 
 ## Backend:  
-Django? FastAPI?
+Django? FastAPI? Flask?
   
 ## Monetization ($x/mth):
 - Increase training time
