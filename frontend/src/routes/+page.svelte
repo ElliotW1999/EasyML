@@ -2,6 +2,7 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import { Button } from 'flowbite-svelte';
 </script>
 
 <svelte:head>
@@ -19,6 +20,8 @@
 		</span>
 
 		Something inspiring<br />with mAcHiNe LeArNiNg
+		<br />
+		<Button href="/train">Get Started</Button>
 	</h1>
 
 

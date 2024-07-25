@@ -13,11 +13,15 @@
 
 	<p>
 		Start by uploading your training data in a csv format [possibly allow for more formats?], with the final column as your target variable [or specify after upload].
+		<br>
+		<br>
+		<FileUpload />
 	</p>
 
-	<pre>[Add button to upload file here]</pre>
-	<FileUpload />
+	
 	<pre> [Is there any way users can inject code here?] </pre>
+	<br>
+	<br>
 	<p>
 		GPT: You can customize the upload logic inside the handleUpload function to fit your specific needs, such as uploading the file to a server using fetch or any other method.
 	</p>
