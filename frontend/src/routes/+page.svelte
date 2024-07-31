@@ -3,6 +3,16 @@
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import { Button } from 'flowbite-svelte';
+
+	import { onMount } from 'svelte';
+
+	let message = '';
+
+	onMount(async () => {
+		const response = await fetch('http://localhost:8000/api/data/');
+		const data = await response.json();
+		message = data.message;
+	});
 </script>
 
 <svelte:head>
@@ -20,6 +30,7 @@
 		</span>
 
 		Something inspiring<br />with mAcHiNe LeArNiNg
+		{message}
 		<br />
 		<Button href="/train">Get Started</Button>
 	</h1>
