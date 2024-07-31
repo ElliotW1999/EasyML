@@ -37,12 +37,9 @@
 		</svg>
 		<ul>
 			<li aria-current={$page.url.pathname.startsWith('/login') ? 'page' : undefined}>
-				<a href="/train">Login</a>
+				<a href="/login">Sign in / Register</a>
 			</li>
 
-			<li aria-current={$page.url.pathname.startsWith('/register') ? 'page' : undefined}>
-				<a href="/train">Sign up</a>
-			</li>
 		</ul>
 
 		<svg viewBox="0 0 2 3" aria-hidden="true">

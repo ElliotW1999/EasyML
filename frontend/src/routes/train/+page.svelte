@@ -1,4 +1,5 @@
 <script>
+    import Dropzone from '$lib/components/Dropzone.svelte';
 	import FileUpload from '$lib/components/FileUpload.svelte';
 	import { Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
@@ -26,7 +27,7 @@
 		Start by uploading your training data in a csv format [possibly allow for more formats?], with the final column as your target variable [or specify after upload].
 		<br>
 		<br>
-		<FileUpload />
+		<Dropzone />
 	</p>
 
 	
