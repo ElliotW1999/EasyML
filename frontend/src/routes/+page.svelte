@@ -31,9 +31,14 @@
 
 		Something inspiring<br />with mAcHiNe LeArNiNg
 		{message}
-		<br />
+		<br>
 		<Button href="/train">Get Started</Button>
 	</h1>
+	<br>
+
+	<h2>
+		1. Upload file -> 2. Train model -> 3. Make predictions (with icons)
+	</h2>
 
 
 </section>
