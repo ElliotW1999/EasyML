@@ -1,9 +1,10 @@
 <script>
     import Dropzone from '$lib/components/Dropzone.svelte';
     import SelectInput from '$lib/components/SelectInput.svelte';
+    import TrainModel from '$lib/components/TrainModel.svelte';
 
 	import { Spinner, Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
-	import { ChevronDownOutline, ArrowRightOutline, CartSolid, BrainSolid, BrainOutline } from 'flowbite-svelte-icons';
+	import { ChevronDownOutline, ArrowRightOutline, CartSolid, BrainSolid } from 'flowbite-svelte-icons';
 	
 	// testing spinner
 	import { onMount } from 'svelte';
@@ -55,10 +56,7 @@
 		Start training:
 	</p>
 	<section>
-		<Button>
-			<BrainOutline class="w-5 h-5 me-2" />
-		   	Generate model
-		</Button>
+		<TrainModel></TrainModel>
 	</section>
 	<pre>When the model is training, display spinner (or loading bar)</pre>
 	{#if isLoading}

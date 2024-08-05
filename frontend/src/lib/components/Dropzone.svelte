@@ -1,59 +1,41 @@
 <script>
   import { Dropzone } from 'flowbite-svelte';
+  import { fileStore } from '../stores/fileStore';
+  let file = null;
 
-  let value = [];
-  const dropHandle = (event) => {
-    event.preventDefault();
-    value = [];  // Clear the array before adding a new file
-    if (event.dataTransfer.items) {
-      [...event.dataTransfer.items].forEach((item, i) => {
-        if (item.kind === 'file') {
-          const file = item.getAsFile();
-          value.push(file.name);
-          value = value;
-        }
-      });
-    } else {
-      [...event.dataTransfer.files].forEach((file, i) => {
-        value = [file.name];  // Ensure only one file is added
-      });
-    }
+  const handleDrop = (event) => {
+      event.preventDefault();
+      const files = event.dataTransfer.items || event.dataTransfer.files;
+      if (files.length > 0) {
+          const droppedFile = files[0].kind ? files[0].getAsFile() : files[0];
+          file = droppedFile;
+          fileStore.set(file);
+      }
   };
 
   const handleChange = (event) => {
-    const files = event.target.files;
-    if (files.length > 0) {
-      value = [files[0].name];  // Ensure only one file is added
-    }
-  };
-
-  const showFiles = (files) => {
-    if (files.length === 1) return files[0];
-    let concat = '';
-    files.map((file) => {
-      concat += file;
-      concat += ',';
-      concat += ' ';
-    });
-
-    if (concat.length > 40) concat = concat.slice(0, 40);
-    concat += '...';
-    return concat;
+      const files = event.target.files;
+      if (files.length > 0) {
+          file = files[0];
+          fileStore.set(file);
+      }
   };
 </script>
 
 <Dropzone
   id="dropzone"
-  on:drop={dropHandle}
-  on:dragover={(event) => {
-    event.preventDefault();
-  }}
-  on:change={handleChange}>
-  <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
-  {#if value.length === 0}
-    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-    <p class="text-xs text-gray-500 dark:text-gray-400">CSV (or xlsx?)</p>
+  on:drop={handleDrop}
+  on:dragover={(event) => event.preventDefault()}
+  on:change={handleChange}
+  accept=".csv, .xlsx"  
+  multiple={false}> 
+  <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+  </svg>
+  {#if file}
+      <p class="text-sm text-gray-500 dark:text-gray-400">Selected file: {file.name}</p>
   {:else}
-    <p>{showFiles(value)}</p>
+      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">CSV (or xlsx?)</p>
   {/if}
 </Dropzone>
