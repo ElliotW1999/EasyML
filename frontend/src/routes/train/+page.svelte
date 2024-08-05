@@ -3,15 +3,11 @@
     import SelectInput from '$lib/components/SelectInput.svelte';
     import TrainModel from '$lib/components/TrainModel.svelte';
     import { fileStore } from '$lib/stores/fileStore';
+    import { isLoading } from '$lib/stores/loadingStore.js';
     import { get } from 'svelte/store';
 	import { Spinner, Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
 
 	
-	// testing spinner
-	import { onMount } from 'svelte';
-
-	let isLoading = true;
-  	let data = null;
 	let file = get(fileStore);
 
 	// Subscribe to the file store
@@ -21,8 +17,20 @@
 			console.log(`Selected file: ${file.name}`);
 		}
     });
-		
 
+	let loadStatus = false
+	// Subscribe to the loading store
+    isLoading.subscribe(value => {
+		loadStatus = value;
+		
+    });
+		
+	/*
+	// testing spinner
+
+  	let data = null;
+	let isLoading = true;
+	import { onMount } from 'svelte';
 	onMount(async () => {
 		// Simulate a data fetch
 		setTimeout(() => {
@@ -30,7 +38,7 @@
 		isLoading = false;
 		}, 2000);
 	});
-	// end test
+	 end test */
 </script>
 
 
@@ -72,11 +80,11 @@
 			<TrainModel></TrainModel>
 		</section>
 		<pre>When the model is training, display spinner (or loading bar)</pre>
-		{#if isLoading}
+		{#if loadStatus}
 			<div class="text-center"><Spinner />
 			<p>Training models...</p></div>
 		{:else}
-			<p>{data.message}</p>
+			<p></p>
 		{/if}
 	
 

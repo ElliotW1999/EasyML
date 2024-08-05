@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+import time # Purely for testing
 
 def get_data(request):
     data = {'message': 'Hello from Django!'}
@@ -16,7 +17,7 @@ def upload_file(request):
             # Handle the uploaded file (e.g., save it or process it)
             file_name = uploaded_file.name
             file_path = default_storage.save(file_name, ContentFile(uploaded_file.read()))
-            
+            time.sleep(10)
 
             return JsonResponse({'message': 'File uploaded successfully'})
         return JsonResponse({'message': 'No file uploaded'}, status=400)
