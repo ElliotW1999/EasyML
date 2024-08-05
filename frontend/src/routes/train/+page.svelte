@@ -2,15 +2,26 @@
     import Dropzone from '$lib/components/Dropzone.svelte';
     import SelectInput from '$lib/components/SelectInput.svelte';
     import TrainModel from '$lib/components/TrainModel.svelte';
-
+    import { fileStore } from '$lib/stores/fileStore';
+    import { get } from 'svelte/store';
 	import { Spinner, Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
-	import { ChevronDownOutline, ArrowRightOutline, CartSolid, BrainSolid } from 'flowbite-svelte-icons';
+
 	
 	// testing spinner
 	import { onMount } from 'svelte';
 
 	let isLoading = true;
   	let data = null;
+	let file = get(fileStore);
+
+	// Subscribe to the file store
+    fileStore.subscribe(value => {
+		file = value;
+		if (file) {
+			console.log(`Selected file: ${file.name}`);
+		}
+    });
+		
 
 	onMount(async () => {
 		// Simulate a data fetch
@@ -45,33 +56,36 @@
 
 	
 	<section>
-		<SelectInput/>
+		<SelectInput />
 		
 	</section>
 
 
 	<br>
-
-	<p>
-		Start training:
-	</p>
-	<section>
-		<TrainModel></TrainModel>
-	</section>
-	<pre>When the model is training, display spinner (or loading bar)</pre>
-	{#if isLoading}
-		<div class="text-center"><Spinner />
-		<p>Training models...</p></div>
+	{#if !file}
+		<p>Please select a file</p>
 	{:else}
-		<p>{data.message}</p>
+		<p>
+			Start training:
+		</p>
+		<section>
+			<TrainModel></TrainModel>
+		</section>
+		<pre>When the model is training, display spinner (or loading bar)</pre>
+		{#if isLoading}
+			<div class="text-center"><Spinner />
+			<p>Training models...</p></div>
+		{:else}
+			<p>{data.message}</p>
+		{/if}
+	
+
+		
+		<pre>Once complete, display new dropzone</pre>
+		<Dropzone></Dropzone>
+	
+	
 	{/if}
-	
-
-	
-	<pre>Once complete, display new dropzone</pre>
-	<Dropzone></Dropzone>
-	
-
 
 </div>
 
