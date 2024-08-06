@@ -94,14 +94,18 @@
 			</script>
 		{:else}
 
-			<p></p>
+			<br>
 		{/if}
 
 		{#if trainingComplete}
 			
+			<p>
+				Upload the data to make predictions on here:
+			</p>
+			
 			<Dropzone></Dropzone>
 		{:else}
-			<p></p>
+			<br>
 		{/if}
 
 		
