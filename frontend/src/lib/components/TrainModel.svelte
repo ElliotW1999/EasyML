@@ -1,7 +1,7 @@
 <script>
     import { Button } from 'flowbite-svelte';
     import { fileStore } from '../stores/fileStore';
-    import { isLoading } from '../stores/loadingStore.js';
+    import { isLoading, hasLoaded } from '../stores/loadingStore.js';
     import { get } from 'svelte/store';
 	import { BrainOutline } from 'flowbite-svelte-icons';
     
@@ -19,6 +19,7 @@
 
                 if (response.ok) {
                     console.log('File uploaded successfully');
+                    hasLoaded.set(true)
                 } else {
                     console.error('File upload failed');
                 }

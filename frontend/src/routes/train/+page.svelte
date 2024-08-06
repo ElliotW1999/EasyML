@@ -3,7 +3,7 @@
     import SelectInput from '$lib/components/SelectInput.svelte';
     import TrainModel from '$lib/components/TrainModel.svelte';
     import { fileStore } from '$lib/stores/fileStore';
-    import { isLoading } from '$lib/stores/loadingStore.js';
+    import { isLoading, hasLoaded } from '$lib/stores/loadingStore.js';
     import { get } from 'svelte/store';
 	import { Spinner, Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
 
@@ -24,6 +24,13 @@
 		loadStatus = value;
 		
     });
+
+	let trainingComplete = false
+	// Subscribe to the loading store
+    hasLoaded.subscribe(value => {
+		trainingComplete = value;
+    });
+	
 		
 	/*
 	// testing spinner
@@ -79,19 +86,25 @@
 		<section>
 			<TrainModel></TrainModel>
 		</section>
-		<pre>When the model is training, display spinner (or loading bar)</pre>
 		{#if loadStatus}
 			<div class="text-center"><Spinner />
 			<p>Training models...</p></div>
+			<script>
+				trainingComplete = true
+			</script>
+		{:else}
+
+			<p></p>
+		{/if}
+
+		{#if trainingComplete}
+			
+			<Dropzone></Dropzone>
 		{:else}
 			<p></p>
 		{/if}
-	
 
 		
-		<pre>Once complete, display new dropzone</pre>
-		<Dropzone></Dropzone>
-	
 	
 	{/if}
 
