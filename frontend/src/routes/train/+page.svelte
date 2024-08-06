@@ -1,16 +1,43 @@
 <script>
     import Dropzone from '$lib/components/Dropzone.svelte';
     import SelectInput from '$lib/components/SelectInput.svelte';
-
+    import TrainModel from '$lib/components/TrainModel.svelte';
+    import { fileStore } from '$lib/stores/fileStore';
+    import { isLoading, hasLoaded } from '$lib/stores/loadingStore.js';
+    import { get } from 'svelte/store';
 	import { Spinner, Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
-	import { ChevronDownOutline, ArrowRightOutline, CartSolid, BrainSolid, BrainOutline } from 'flowbite-svelte-icons';
+
 	
+	let file = get(fileStore);
+
+	// Subscribe to the file store
+    fileStore.subscribe(value => {
+		file = value;
+		if (file) {
+			console.log(`Selected file: ${file.name}`);
+		}
+    });
+
+	let loadStatus = false
+	// Subscribe to the loading store
+    isLoading.subscribe(value => {
+		loadStatus = value;
+		
+    });
+
+	let trainingComplete = false
+	// Subscribe to the loading store
+    hasLoaded.subscribe(value => {
+		trainingComplete = value;
+    });
+	
+		
+	/*
 	// testing spinner
-	import { onMount } from 'svelte';
 
-	let isLoading = true;
   	let data = null;
-
+	let isLoading = true;
+	import { onMount } from 'svelte';
 	onMount(async () => {
 		// Simulate a data fetch
 		setTimeout(() => {
@@ -18,7 +45,7 @@
 		isLoading = false;
 		}, 2000);
 	});
-	// end test
+	 end test */
 </script>
 
 
@@ -44,36 +71,46 @@
 
 	
 	<section>
-		<SelectInput/>
+		<SelectInput />
 		
 	</section>
 
 
 	<br>
-
-	<p>
-		Start training:
-	</p>
-	<section>
-		<Button>
-			<BrainOutline class="w-5 h-5 me-2" />
-		   	Generate model
-		</Button>
-	</section>
-	<pre>When the model is training, display spinner (or loading bar)</pre>
-	{#if isLoading}
-		<div class="text-center"><Spinner />
-		<p>Training models...</p></div>
+	{#if !file}
+		<p>Please select a file</p>
 	{:else}
-		<p>{data.message}</p>
+		<p>
+			Start training:
+		</p>
+		<section>
+			<TrainModel></TrainModel>
+		</section>
+		{#if loadStatus}
+			<div class="text-center"><Spinner />
+			<p>Training models...</p></div>
+			<script>
+				trainingComplete = true
+			</script>
+		{:else}
+
+			<br>
+		{/if}
+
+		{#if trainingComplete}
+			
+			<p>
+				Upload the data to make predictions on here:
+			</p>
+			
+			<Dropzone></Dropzone>
+		{:else}
+			<br>
+		{/if}
+
+		
+	
 	{/if}
-	
-
-	
-	<pre>Once complete, display new dropzone</pre>
-	<Dropzone></Dropzone>
-	
-
 
 </div>
 

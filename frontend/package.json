@@ -27,6 +27,5 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-auto": "^3.2.2"
 	}
 }
