@@ -10,10 +10,10 @@ Premium features: Sagemaker
 CloudWatch (trigger lambda/ sagemaker training)?  
   
 ## Frontend:
-Svelte?  
+Svelte
 
 ## Backend:  
-Django? FastAPI? Flask?
+Django
   
 ## Monetization ($x/mth):
 - Increase training time
@@ -21,5 +21,3 @@ Django? FastAPI? Flask?
 - Allow users to visualise predictor/response relationships
 - Show feature importances
 
-## Unknowns:  
-What libraries/ tools to build front end
