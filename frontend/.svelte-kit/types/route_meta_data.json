@@ -8,6 +8,9 @@
 	"/login": [
 		"src/routes/login/+page.ts"
 	],
+	"/protected": [
+		"src/routes/protected/+page.ts"
+	],
 	"/sverdle": [
 		"src/routes/sverdle/+page.server.ts"
 	],

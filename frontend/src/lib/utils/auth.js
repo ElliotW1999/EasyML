@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAuthToken } from '$lib/stores/auth';
+import { setAuthToken } from '../stores/auth';
 
 const API_URL = 'http://localhost:5173/api';  // Adjust according to your API endpoint
 
@@ -10,7 +10,7 @@ export async function login(username, password) {
             password
         });
         const { access } = response.data;
-        setAuthToken(access);
+        setAuthToken(access, username);  // Pass the username to setAuthToken
         return true;
     } catch (error) {
         console.error("Login error: ", error);
