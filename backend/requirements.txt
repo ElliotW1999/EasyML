@@ -1,2 +1,9 @@
 Django==3.2.6
 django-cors-headers==3.7.0
+asgiref
+djangorestframework
+djangorestframework-simplejwt
+PyJWT
+pytz
+sqlparse
+python-dotenv
