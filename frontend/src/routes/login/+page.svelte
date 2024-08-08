@@ -1,6 +1,18 @@
 <script>
     import InputForm from "$lib/components/InputForm.svelte";
     import Login from "$lib/components/Login.svelte";
+    import Register from "$lib/components/Register.svelte";
+    import { writable } from 'svelte/store';
+
+    const accessToken = writable(null);
+    const refreshToken = writable(null);
+
+    function handleRegisterSuccess(event) {
+        accessToken.set(event.detail.access);
+        refreshToken.set(event.detail.refresh);
+        // Optionally redirect the user or perform additional actions
+        console.log('User registered successfully with access token:', event.detail.access);
+    }
 
 </script>
 <svelte:head>
@@ -17,9 +29,9 @@
 
 	
 	<br>
-	<p>
-		Or register here:
-	</p>
+	<h2>
+		Register here:
+	<h2>
 	<br>
-	<InputForm />
+	<Register on:registerSuccess={handleRegisterSuccess} />
 </div>

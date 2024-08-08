@@ -2,11 +2,15 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-import time # Purely for testing
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+import time # Purely for testing
 from rest_framework import generics
-from .serializers import UserSerializer
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny 
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import UserSerializer
 
 def get_data(request):
     data = {'message': 'Hello from Django!'}
@@ -31,3 +35,13 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save(password=make_password(request.data['password']))
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }, status=status.HTTP_201_CREATED)

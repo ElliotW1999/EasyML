@@ -22,6 +22,15 @@
           successMessage = '';
       }
   }
+
+  /*
+    Remember me code
+    <div class="flex items-start">
+          <Checkbox>Remember me</Checkbox>
+          <a href="/" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Forgot password?</a>
+        </div>
+
+  */
 </script>
 
 <Section name="login">
@@ -37,10 +46,7 @@
           <span>Your password</span>
           <Input type="password" bind:value={password} name="password" placeholder="•••••" required />
         </Label>
-        <div class="flex items-start">
-          <Checkbox>Remember me</Checkbox>
-          <a href="/" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Forgot password?</a>
-        </div>
+        
         {#if errorMessage}
           <p>{errorMessage}</p>
         {/if}

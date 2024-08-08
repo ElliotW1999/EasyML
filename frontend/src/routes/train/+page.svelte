@@ -3,13 +3,14 @@
     import SelectInput from '$lib/components/SelectInput.svelte';
     import TrainModel from '$lib/components/TrainModel.svelte';
     import { fileStore } from '$lib/stores/fileStore';
+	import { isLoggedIn } from '$lib/stores/auth';
     import { isLoading, hasLoaded } from '$lib/stores/loadingStore.js';
     import { get } from 'svelte/store';
 	import { Spinner, Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
+	import { onMount } from 'svelte';
 
 	
 	let file = get(fileStore);
-
 	// Subscribe to the file store
     fileStore.subscribe(value => {
 		file = value;
@@ -30,6 +31,18 @@
     hasLoaded.subscribe(value => {
 		trainingComplete = value;
     });
+
+	let loggedIn = false;
+	// Subscribe to the isLoggedIn store
+    onMount(() => {
+        const unsubscribe = isLoggedIn.subscribe(value => {
+            loggedIn = value;
+        });
+        return () => {
+            unsubscribe();
+        };
+    });
+
 	
 		
 	/*
@@ -57,61 +70,64 @@
 <div class="text-column">
 	<h1>Machine Learning made easy</h1>
 
-	<p>
-		Start by uploading your training data in a csv format [possibly allow for more formats?], with the final column as your target variable [or specify after upload].
-		<br>
-		<br>
-		<Dropzone />
-	</p>
-
-	
-	<pre> [Is there any way users can inject code here?] </pre>
-	<br>
-
-
-	
-	<section>
-		<SelectInput />
-		
-	</section>
-
-
-	<br>
-	{#if !file}
-		<p>Please select a file</p>
-	{:else}
+	{#if loggedIn}
 		<p>
-			Start training:
+			Start by uploading your training data in a csv format [possibly allow for more formats?], with the final column as your target variable [or specify after upload].
+			<br>
+			<br>
+			<Dropzone />
 		</p>
-		<section>
-			<TrainModel></TrainModel>
-		</section>
-		{#if loadStatus}
-			<div class="text-center"><Spinner />
-			<p>Training models...</p></div>
-			<script>
-				trainingComplete = true
-			</script>
-		{:else}
-
-			<br>
-		{/if}
-
-		{#if trainingComplete}
-			
-			<p>
-				Upload the data to make predictions on here:
-			</p>
-			
-			<Dropzone></Dropzone>
-		{:else}
-			<br>
-		{/if}
 
 		
-	
-	{/if}
+		<pre> [Is there any way users can inject code here?] </pre>
+		<br>
 
+
+		
+		<section>
+			<SelectInput />
+			
+		</section>
+
+
+		<br>
+		{#if !file}
+			<p>Please select a file</p>
+		{:else}
+			<p>
+				Start training:
+			</p>
+			<section>
+				<TrainModel></TrainModel>
+			</section>
+			{#if loadStatus}
+				<div class="text-center"><Spinner />
+				<p>Training models...</p></div>
+				<script>
+					trainingComplete = true
+				</script>
+			{:else}
+
+				<br>
+			{/if}
+
+			{#if trainingComplete}
+				
+				<p>
+					Upload the data to make predictions on here:
+				</p>
+				
+				<Dropzone></Dropzone>
+			{:else}
+				<br>
+			{/if}
+
+			
+		
+		{/if}
+	{:else}
+		<h2>You must be signed in first. Please sign in or register an account</h2>
+	{/if}
 </div>
 
 <style>
